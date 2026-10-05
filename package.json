@@ -1,0 +1,12 @@
+{
+  "name": "segredo-emagrecimento-quiz",
+  "version": "1.0.0",
+  "description": "Clone exato do O Segredo do Emagrecimento Quiz",
+  "scripts": {
+    "start": "serve -l 9000",
+    "dev": "serve -l 9000"
+  },
+  "dependencies": {
+    "serve": "^14.2.4"
+  }
+}
