@@ -307,7 +307,7 @@
       render: () => `
         <h2 class="title">O efeito do Ozempic por R$5 ⭐</h2>
         <div class="news">
-          <img class="news-img" src="/assets/entrevista-globo-Cr7zZD5Q.webp?v=2" alt="Notícia sobre a Mistura Natural">
+          <img class="news-img" src="/assets/entrevista-globo-Cr7zZD5Q.webp?v=3" alt="Notícia sobre a Mistura Natural">
         </div>
         ${btn('Continuar')}`,
       after: continuar,
