@@ -742,7 +742,7 @@
           </div>
 
           <div class="audio">
-            <img class="audio-avatar" src="/assets/aline-avatar.webp" alt="Aline Cardoso">
+            <img class="audio-avatar" src="/assets/doutora-avatar.jpg" alt="Aline Cardoso">
             <button type="button" class="audio-play" id="audio-btn" aria-label="Ouvir áudio">▶</button>
             <div class="audio-mid">
               <div class="audio-wave"><div id="audio-prog"></div></div>
