@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Espere! Temos um presente para você</title>
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #FAF6F0;
+    --fg: #1F2937;
+    --card: #FFFFFF;
+    --primary: #15803D;
+    --primary-strong: #166534;
+    --orange: #EA580C;
+    --orange-hover: #C2410C;
+    --soft: #FFF7ED;
+    --soft-border: #FED7AA;
+    --muted: #4B5563;
+    --border: #E5E7EB;
+    --green: #15803D;
+    --green-hover: #166534;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 20px;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .header img {
+    height: 40px;
+    width: auto;
+    max-width: 240px;
+    object-contain: contain;
+    display: block;
+  }
+
+  .urgency-bar {
+    background: #FEF3C7;
+    border-bottom: 2px solid #F59E0B;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #92400E;
+  }
+
+  .wrapper {
+    max-width: 580px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 30px 0 24px;
+  }
+
+  .badge-top {
+    display: inline-block;
+    background: #FFEDD5;
+    color: var(--orange);
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+
+  .hero h1 {
+    font-size: clamp(22px, 5.2vw, 30px);
+    font-weight: 900;
+    line-height: 1.25;
+    margin-bottom: 12px;
+    color: #111827;
+  }
+
+  .hero h1 span { color: var(--orange); }
+
+  .hero p {
+    font-size: 15px;
+    color: var(--muted);
+    line-height: 1.6;
+    max-width: 460px;
+    margin: 0 auto;
+  }
+
+  .slot-wrap {
+    background: var(--card);
+    border: 2px solid var(--soft-border);
+    border-radius: 20px;
+    padding: 24px 20px 28px;
+    text-align: center;
+    box-shadow: 0 10px 25px -5px rgba(234, 88, 12, 0.08);
+  }
+
+  .slot-eyebrow {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 18px;
+  }
+
+  .slot-machine {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+
+  .slot-reel {
+    width: 76px;
+    height: 76px;
+    background: #FFF7ED;
+    border: 2px solid var(--soft-border);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 34px;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.04);
+  }
+
+  .slot-reel.spinning .symbol { animation: blink 0.1s linear infinite; }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.2; }
+  }
+
+  .slot-sep { font-size: 24px; color: #FDBA74; font-weight: 900; }
+
+  .spin-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 52px;
+    background: var(--orange);
+    color: #fff;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 800;
+    text-transform: uppercase;
+    padding: 16px 36px;
+    border-radius: 999px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 4px 18px rgba(234, 88, 12, 0.35);
+  }
+
+  .spin-btn:hover { background: var(--orange-hover); transform: translateY(-2px); }
+  .spin-btn:active { transform: translateY(0); }
+  .spin-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  .result-section {
+    display: none;
+    animation: fadeUp 0.5s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .win-card {
+    margin-top: 26px;
+    background: linear-gradient(135deg, #EA580C, #F97316);
+    border-radius: 20px;
+    padding: 26px 20px;
+    text-align: center;
+    color: #fff;
+    box-shadow: 0 10px 25px -5px rgba(234, 88, 12, 0.3);
+  }
+
+  .win-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.9;
+    margin-bottom: 8px;
+  }
+
+  .win-discount {
+    font-size: clamp(52px, 13vw, 72px);
+    font-weight: 900;
+    line-height: 1;
+    color: #FEF08A;
+    margin-bottom: 8px;
+  }
+
+  .win-product {
+    font-size: 15px;
+    font-weight: 600;
+    opacity: 0.95;
+    margin-bottom: 14px;
+  }
+
+  .price-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+  }
+
+  .price-old { font-size: 18px; font-weight: 700; opacity: 0.7; text-decoration: line-through; }
+  .price-arrow { font-size: 18px; opacity: 0.8; }
+  .price-new { font-size: 44px; font-weight: 900; color: #fff; }
+
+  .divider { height: 1px; background: var(--border); margin: 30px 0; }
+
+  .section-eyebrow {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 8px;
+  }
+
+  .copy-h2 {
+    font-size: clamp(20px, 4.8vw, 26px);
+    font-weight: 900;
+    line-height: 1.3;
+    margin-bottom: 20px;
+    color: #111827;
+  }
+
+  .copy-h2 em { font-style: normal; color: var(--orange); }
+
+  .item-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .item-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: #374151;
+  }
+
+  .icon-circle {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    margin-top: 2px;
+    font-weight: 800;
+  }
+
+  .icon-circle.pain { background: #FEE2E2; color: #DC2626; }
+  .icon-circle.gain { background: #DCFCE7; color: #16A34A; }
+
+  .transition-box {
+    background: var(--card);
+    border-left: 4px solid var(--orange);
+    border-radius: 0 14px 14px 0;
+    padding: 18px 20px;
+    margin: 28px 0;
+    font-size: 14px;
+    line-height: 1.65;
+    color: #1F2937;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  .transition-box strong { color: var(--orange); font-weight: 800; }
+
+  .cta-section { text-align: center; margin-top: 10px; }
+
+  .timer-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .timer-label { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); }
+  .timer-display { font-size: 22px; font-weight: 900; color: #DC2626; letter-spacing: 1px; }
+
+  .cta-btn {
+    display: block;
+    width: 100%;
+    background: #16A34A;
+    color: #fff;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 800;
+    padding: 18px 20px;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 6px 20px rgba(22, 163, 74, 0.35);
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .cta-btn:hover { background: #15803D; transform: translateY(-2px); }
+  .cta-btn .line1 { display: block; font-size: 17px; }
+  .cta-btn .line2 { display: block; font-size: 12px; font-weight: 600; opacity: 0.95; margin-top: 4px; text-transform: none; }
+
+  .guarantee-box {
+    margin-top: 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-align: left;
+  }
+
+  .guarantee-box img { width: 56px; height: 56px; flex-shrink: 0; }
+  .guarantee-text h4 { font-size: 14px; font-weight: 800; margin-bottom: 4px; color: #111827; }
+  .guarantee-text p { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  .confetti-piece { position: fixed; pointer-events: none; z-index: 9999; border-radius: 2px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <img src="/assets/logo-formula-insulina.png" alt="A Fórmula da Insulina">
+</div>
+
+<div class="urgency-bar">⚠️ Não saia ainda — preparamos algo especial para você</div>
+
+<main class="wrapper">
+
+  <div class="hero">
+    <div class="badge-top">🎰 Sorteio exclusivo</div>
+    <h1><span>Gire agora a máquina</span><br>e pegue seu desconto surpresa</h1>
+    <p>Apenas 1 a cada 100 mulheres recebem essa chance. Clique abaixo para sortear o seu cupom.</p>
+  </div>
+
+  <div class="slot-wrap">
+    <div class="slot-eyebrow">🎁 Máquina da Sorte</div>
+    <div class="slot-machine" aria-hidden="true">
+      <div class="slot-reel" id="reel1"><span class="symbol" id="sym1">🍒</span></div>
+      <div class="slot-sep">·</div>
+      <div class="slot-reel" id="reel2"><span class="symbol" id="sym2">⭐</span></div>
+      <div class="slot-sep">·</div>
+      <div class="slot-reel" id="reel3"><span class="symbol" id="sym3">🍋</span></div>
+    </div>
+    <button type="button" class="spin-btn" id="spinBtn">🎲 &nbsp;Girar Agora</button>
+  </div>
+
+  <div class="result-section" id="resultSection" aria-live="polite">
+
+    <div class="win-card">
+      <div class="win-label">🏆 Parabéns! Você ganhou</div>
+      <div class="win-discount">29% OFF</div>
+      <div class="win-product">na sua rotina de 21 dias com <strong>A Fórmula da Insulina</strong></div>
+      <div class="price-row">
+        <span class="price-old">R$ 27,90</span>
+        <span class="price-arrow">→</span>
+        <span class="price-new">R$ 19,90</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-eyebrow">Seja honesta consigo mesma</div>
+    <h2 class="copy-h2">Por que você ainda <em>não começou</em> a transformar seu corpo?</h2>
+
+    <ul class="item-list">
+      <li><span class="icon-circle pain">✕</span><span>Você acorda todo dia com o corpo pesado, a barriga inchada — e sente que perdeu o controle da própria balança</span></li>
+      <li><span class="icon-circle pain">✕</span><span>Já tentou academia, caminhada, fechar a boca... nada durou. Você começa animada e abandona em semanas — e se culpa por isso</span></li>
+      <li><span class="icon-circle pain">✕</span><span>Suas roupas favoritas já não fecham mais. Você olha no espelho e não se reconhece — e cada mês que passa parece mais difícil</span></li>
+      <li><span class="icon-circle pain">✕</span><span>Você vê outras mulheres perdendo até 10kg em casa com a Fórmula da Insulina e pensa: "por que eu não consigo?" — sendo que a única diferença é dar o primeiro passo</span></li>
+    </ul>
+
+    <div class="divider"></div>
+
+    <div class="section-eyebrow">Imagina daqui a 21 dias</div>
+    <h2 class="copy-h2">O que muda quando você <em>finalmente dá o primeiro passo</em></h2>
+
+    <ul class="item-list">
+      <li><span class="icon-circle gain">✓</span><span>Até 11kg a menos em 21 dias — sem remédio caro, mesmo que você já tenha tentado de tudo</span></li>
+      <li><span class="icon-circle gain">✓</span><span>Freio da insulina antes das refeições — sua campainha de armazenamento toca mais baixo, e o corpo para de acumular gordura</span></li>
+      <li><span class="icon-circle gain">✓</span><span>Barriga desinchada nos primeiros 7 dias, com a fome e a vontade de doce controladas sem sofrimento</span></li>
+      <li><span class="icon-circle gain">✓</span><span>Mais energia, leveza e disposição durante o dia. Seu corpo agradece desde o primeiro copo</span></li>
+      <li><span class="icon-circle gain">✓</span><span>A rotina personalizada do dia 1 ao 21 — o que usar, quanto e em qual horário do seu dia</span></li>
+    </ul>
+
+    <div class="transition-box">
+      Eu liberei esse desconto para você porque me importo de verdade com a sua transformação. Sei que às vezes o valor trava a gente — e não quero que isso seja o motivo de você continuar se sentindo mal com o próprio corpo. <strong>Então agora não tem mais desculpa: o desconto para R$ 19,90 está liberado e a sua rotina personalizada está pronta te esperando!</strong>
+    </div>
+
+    <div class="cta-section">
+      <div class="timer-wrap">
+        <span class="timer-label">Desconto expira em</span>
+        <span class="timer-display" id="countdown">10:00</span>
+      </div>
+
+      <a href="https://pay.cakto.com.br/ym699ve" class="cta-btn" id="cta">
+        <span class="line1">✅ QUERO MEU DESCONTO DE 29%</span>
+        <span class="line2">De R$ 27,90 por apenas R$ 19,90 — acesso imediato</span>
+      </a>
+
+      <div class="guarantee-box">
+        <img src="/assets/garantia-30-dias.webp" alt="Garantia de 30 dias">
+        <div class="guarantee-text">
+          <h4>Garantia Total de 30 Dias</h4>
+          <p>Se você não amar sua rotina ou não ver resultados no seu corpo em 30 dias, devolvemos 100% do seu dinheiro sem burocracia e sem perguntas.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+(function () {
+  var symbols = ['🍒', '⭐', '🍋', '🍹', '🔔', '✨'];
+  var final = ['🍹', '🍹', '🍹'];
+  var spinning = false;
+  var timerSec = 600;
+
+  document.getElementById('spinBtn').addEventListener('click', function startSpin() {
+    if (spinning) return;
+    spinning = true;
+    var btn = document.getElementById('spinBtn');
+    btn.disabled = true;
+    btn.textContent = 'Girando...';
+
+    var reels = ['reel1', 'reel2', 'reel3'].map(function (id) { return document.getElementById(id); });
+    var syms = ['sym1', 'sym2', 'sym3'].map(function (id) { return document.getElementById(id); });
+    var stopped = [false, false, false];
+
+    reels.forEach(function (r) { r.classList.add('spinning'); });
+
+    var intervals = syms.map(function (s, i) {
+      return setInterval(function () {
+        if (!stopped[i]) s.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      }, 80);
+    });
+
+    function stopReel(index) {
+      stopped[index] = true;
+      clearInterval(intervals[index]);
+      reels[index].classList.remove('spinning');
+      syms[index].textContent = final[index];
+      if (index === 2) showResult();
+    }
+
+    setTimeout(function () { stopReel(0); }, 900);
+    setTimeout(function () { stopReel(1); }, 1700);
+    setTimeout(function () { stopReel(2); }, 2500);
+  });
+
+  function showResult() {
+    var sec = document.getElementById('resultSection');
+    sec.style.display = 'block';
+    setTimeout(function () { sec.scrollIntoView({ behavior: 'smooth', block: 'start' }); }, 80);
+    launchConfetti();
+    startTimer();
+  }
+
+  function startTimer() {
+    var el = document.getElementById('countdown');
+    var timerInterval = setInterval(function () {
+      timerSec--;
+      if (timerSec <= 0) {
+        clearInterval(timerInterval);
+        el.textContent = '00:00';
+      } else {
+        var m = Math.floor(timerSec / 60);
+        var s = timerSec % 60;
+        el.textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+      }
+    }, 1000);
+  }
+
+  function launchConfetti() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var colors = ['#ea580c', '#15803d', '#22c55e', '#f59e0b', '#fed7aa', '#166534'];
+    var style = document.createElement('style');
+    style.textContent = '@keyframes confetti-fall { 0% { transform: translateY(-20px) rotate(0deg); opacity:1; } 100% { transform: translateY(100vh) rotate(540deg); opacity:0; } }';
+    document.head.appendChild(style);
+    for (var i = 0; i < 45; i++) {
+      setTimeout(function () {
+        var el = document.createElement('div');
+        el.className = 'confetti-piece';
+        var size = 6 + Math.random() * 6;
+        el.style.cssText = 'left:' + Math.random() * 100 + 'vw;top:0;width:' + size + 'px;height:' + size + 'px;background:' + colors[Math.floor(Math.random() * colors.length)] + ';border-radius:' + (Math.random() > 0.5 ? '50%' : '2px') + ';animation:confetti-fall ' + (1.8 + Math.random() * 1.5) + 's linear forwards;';
+        document.body.appendChild(el);
+        setTimeout(function () { el.remove(); }, 3800);
+      }, i * 35);
+    }
+  }
+
+  try {
+    var cta = document.getElementById('cta');
+    if (cta) {
+      var u = new URL(cta.href);
+      var storedUtms = {};
+      try {
+        var raw = localStorage.getItem('ins_utm_params');
+        if (raw) storedUtms = JSON.parse(raw);
+      } catch(e) {}
+      for (var k in storedUtms) {
+        if (!u.searchParams.has(k)) u.searchParams.set(k, storedUtms[k]);
+      }
+      if (window.location.search) {
+        var params = new URLSearchParams(window.location.search);
+        params.forEach(function(val, key) {
+          u.searchParams.set(key, val);
+        });
+      }
+      cta.href = u.toString();
+    }
+  } catch(e) {}
+})();
+</script>
+
+</body>
+</html>

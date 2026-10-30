@@ -1,0 +1,12 @@
+{
+  "name": "formula-da-insulina-quiz",
+  "version": "1.0.0",
+  "description": "A Fórmula da Insulina Quiz",
+  "scripts": {
+    "start": "serve -l 9000",
+    "dev": "serve -l 9000"
+  },
+  "dependencies": {
+    "serve": "^14.2.4"
+  }
+}

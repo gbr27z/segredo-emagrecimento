@@ -4,15 +4,21 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <title>O Segredo do Emagrecimento</title>
+    <title>A Fórmula da Insulina</title>
     <meta name="description" content="É só tomar isso antes de dormir para perder 11kg!" />
 
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="O Segredo do Emagrecimento" />
+    <meta property="og:title" content="A Fórmula da Insulina" />
     <meta property="og:description" content="É só tomar isso antes de dormir para perder 11kg!" />
 
-    <script type="module" crossorigin src="/assets/index-DX5_2SFZ.js?v=18"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-BvuoaYKC.css?v=16" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+
+    <link rel="preload" as="image" href="/assets/logo-formula-insulina.png" />
+    <link rel="preload" as="image" href="/assets/doutora-hero.jpg" />
+    <link rel="stylesheet" href="/assets/styles.css?v=6" />
+    <script src="/assets/app.js?v=6" defer></script>
 
     <!-- Meta Pixel Code -->
     <script>
@@ -27,19 +33,26 @@
       fbq('init', '2178586076074417');
       fbq('track', 'PageView');
 
-      // Rastrear clique no botão de compra (Checkout Cakto)
-      document.addEventListener('click', function(e) {
-        var link = e.target.closest('a');
-        if (link && link.href && link.href.indexOf('pay.cakto.com.br') !== -1) {
-          if (typeof fbq === 'function') {
-            fbq('track', 'InitiateCheckout', {
-              content_name: 'O Segredo do Emagrecimento',
-              value: 27.90,
-              currency: 'BRL'
-            });
+      // RASTREIO DE CHECKOUT E BACK-REDIRECT
+      // Dispara SOMENTE quando o usuário clica no checkout da Cakto
+      (function() {
+        document.addEventListener('click', function(e) {
+          var link = e.target.closest('a');
+          if (link && link.href && link.href.indexOf('cakto.com.br') !== -1) {
+            if (typeof fbq === 'function') {
+              fbq('track', 'InitiateCheckout', {
+                content_name: 'A Fórmula da Insulina',
+                value: 27.90,
+                currency: 'BRL'
+              });
+            }
+            try {
+              // Injeta /desconto/ no histórico para que se o usuário voltar do checkout, caia na oferta com desconto
+              history.pushState(null, '', '/desconto/');
+            } catch(err) {}
           }
-        }
-      });
+        });
+      })();
     </script>
     <noscript>
       <img height="1" width="1" style="display:none"
@@ -49,6 +62,6 @@
   </head>
 
   <body>
-    <div id="root"></div>
+    <div id="app" role="main"></div>
   </body>
 </html>

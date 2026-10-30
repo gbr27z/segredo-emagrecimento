@@ -1,7 +1,7 @@
 {
-  "name": "segredo-emagrecimento-quiz",
+  "name": "formula-da-insulina-quiz",
   "version": "1.0.0",
-  "description": "Clone exato do O Segredo do Emagrecimento Quiz",
+  "description": "A Fórmula da Insulina Quiz",
   "scripts": {
     "start": "serve -l 9000",
     "dev": "serve -l 9000"
