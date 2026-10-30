@@ -277,7 +277,7 @@
       render: () => `
         <h2 class="title sm">Onde você mais sente que o seu ${hl('corpo mudou?')}</h2>
         <div class="areas">
-          <img class="areas-img" src="/assets/body-areas-CF2TMRSN.webp" alt="Áreas do corpo">
+          <img class="areas-img" src="/assets/areas-corpo.webp" alt="Áreas do corpo">
           <div class="areas-opts">${opcoes(AREAS, { sm: true, multi: true, selecionados: state.answers.ondeMudou || [] })}</div>
         </div>
         ${btn('Continuar')}`,
