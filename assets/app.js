@@ -6,7 +6,7 @@
     preco: {
       valor: 'R$ 27,90',
       promo: 'R$ 27,90',
-      parcelamento: 'ou 3x de R$ 10,21',
+      parcelamento: 'ou 3x de R$ 9,99',
     },
     utmKey: 'ins_utm_params',
   };
@@ -912,7 +912,6 @@
                 <div class="xs op">${esc(dataHoje)}</div>
               </div>
               <div class="card-inner">
-                <img class="mockup" src="/assets/mockup-formula-insulina.webp?v=3" alt="O que você recebe: rotina no celular e 3 bônus" width="512" height="382" loading="lazy" decoding="async">
                 <div class="stack-row"><span class="green">✅</span><span>Receita completa da sua <strong>Mistura Metabólica</strong> personalizada</span></div>
                 <div class="stack-row"><span class="green">✅</span><span>Quantidade exata para o seu corpo</span></div>
                 <div class="stack-row"><span class="green">✅</span><span>Modo de preparo rápido (menos de 2 min)</span></div>
@@ -975,7 +974,7 @@
               </details>
               <details class="faq">
                 <summary>É pagamento único ou assinatura?</summary>
-                <p>É pagamento único de apenas R$ 27,90 (ou 3x de R$ 10,21). Não há mensalidades nem cobranças ocultas.</p>
+                <p>É pagamento único de apenas R$ 27,90 (ou 3x de R$ 9,99). Não há mensalidades nem cobranças ocultas.</p>
               </details>
             </div>
 
