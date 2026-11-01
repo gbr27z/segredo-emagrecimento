@@ -6,9 +6,16 @@
 <meta name="robots" content="noindex">
 <title>Espere! Temos um presente para você</title>
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link rel="dns-prefetch" href="https://fonts.gstatic.com">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+<noscript>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+</noscript>
+<link rel="preload" as="image" href="/assets/logo-formula-insulina.webp" type="image/webp">
 
 <style>
   :root {
@@ -358,7 +365,7 @@
 <body>
 
 <div class="header">
-  <img src="/assets/logo-formula-insulina.png" alt="A Fórmula da Insulina">
+  <img src="/assets/logo-formula-insulina.webp" alt="A Fórmula da Insulina" width="160" height="32" decoding="async">
 </div>
 
 <div class="urgency-bar">⚠️ Não saia ainda — preparamos algo especial para você</div>
@@ -437,7 +444,7 @@
       </a>
 
       <div class="guarantee-box">
-        <img src="/assets/garantia-30-dias.webp" alt="Garantia de 30 dias">
+        <img src="/assets/garantia-30-dias.webp" alt="Garantia de 30 dias" width="56" height="56" loading="lazy" decoding="async">
         <div class="guarantee-text">
           <h4>Garantia Total de 30 Dias</h4>
           <p>Se você não amar sua rotina ou não ver resultados no seu corpo em 30 dias, devolvemos 100% do seu dinheiro sem burocracia e sem perguntas.</p>
