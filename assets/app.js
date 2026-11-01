@@ -114,10 +114,10 @@
   ];
 
   const DEPOIMENTOS = [
-    { kg: '-8kg', frase: 'Perdi 8kg em 21 dias. Tive que jogar algumas calças e shorts fora.', nome: 'Maria', local: '47 Anos, Belo Horizonte', img: '/assets/antes-depois-maria-Bjz-z-hL.jpg' },
-    { kg: '-9kg', frase: 'Minha pressão normalizou e o médico reduziu meu remédio.', nome: 'Rosana', local: '52 Anos, São Paulo', img: '/assets/antes-depois-rosana-BQrEG7CG.jpg' },
-    { kg: '-7kg', frase: 'Me olhei no espelho e me reconheci de novo.', nome: 'Fernanda', local: '43 Anos, Recife', img: '/assets/antes-depois-fernanda-DB-hMpea.jpg' },
-    { kg: '-11kg', frase: 'Voltei a ter energia pra cuidar dos meus filhos.', nome: 'Claudia', local: '35 Anos, Santa Catarina', img: '/assets/antes-depois-4-CXXOM7GR.jpg' },
+    { kg: '-8kg', frase: 'Perdi 8kg em 21 dias. Tive que jogar algumas calças e shorts fora.', nome: 'Maria', local: '47 Anos, Belo Horizonte', img: '/assets/antes-depois-maria.webp' },
+    { kg: '-9kg', frase: 'Minha pressão normalizou e o médico reduziu meu remédio.', nome: 'Rosana', local: '52 Anos, São Paulo', img: '/assets/antes-depois-rosana.webp' },
+    { kg: '-7kg', frase: 'Me olhei no espelho e me reconheci de novo.', nome: 'Fernanda', local: '43 Anos, Recife', img: '/assets/antes-depois-fernanda.webp' },
+    { kg: '-11kg', frase: 'Voltei a ter energia pra cuidar dos meus filhos.', nome: 'Claudia', local: '35 Anos, Santa Catarina', img: '/assets/antes-depois-claudia.webp' },
   ];
 
   const acha = (lista, val) => lista.find((o) => o.value === val);
@@ -145,7 +145,7 @@
   }
 
   function logo() {
-    return `<div class="logo"><img src="/assets/logo-formula-insulina.png" alt="A Fórmula da Insulina"></div>`;
+    return `<div class="logo"><img src="/assets/logo-formula-insulina.webp" alt="A Fórmula da Insulina" width="160" height="32" decoding="async"></div>`;
   }
 
   function btn(label, { id = 'cta', verde = false, disabled = false } = {}) {
@@ -226,7 +226,7 @@
             <p class="hero-sub">Mistura “estranha” viraliza na internet por trazer resultado logo nos primeiros dias</p>
             <div class="hero-img">
               <div class="hero-glow"></div>
-              <img class="hero-foto" src="/assets/doutora-hero.jpg" alt="Especialista">
+              <img class="hero-foto" src="/assets/doutora-hero.webp" alt="Especialista" width="480" height="480" fetchpriority="high" decoding="async">
               <div class="hero-callout">a mistura de R$5</div>
             </div>
             <p class="hero-prova"><strong>+12.847 mulheres</strong> já descobriram a versão certa para o seu corpo</p>
@@ -263,7 +263,7 @@
             ['plus-size', 'Plus Size', '/assets/img-corpo-plus.webp'],
           ].map(([v, l, img]) => `
             <button type="button" class="quiz-option col${state.answers.corpo === v ? ' selected' : ''}" data-value="${v}">
-              <img class="corpo-img" src="${img}" alt="${l}">
+              <img class="corpo-img" src="${img}" alt="${l}" width="120" height="120" loading="lazy" decoding="async">
               <span class="opt-label sm">${l}</span>
             </button>`).join('')}
         </div>`,
@@ -276,7 +276,7 @@
       render: () => `
         <h2 class="title sm">Onde você mais sente que o seu ${hl('corpo mudou?')}</h2>
         <div class="areas">
-          <img class="areas-img" src="/assets/areas-corpo.webp" alt="Áreas do corpo">
+          <img class="areas-img" src="/assets/areas-corpo.webp" alt="Áreas do corpo" width="240" height="360" loading="lazy" decoding="async">
           <div class="areas-opts">${opcoes(AREAS, { sm: true, multi: true, selecionados: state.answers.ondeMudou || [] })}</div>
         </div>
         ${btn('Continuar')}`,
@@ -306,7 +306,7 @@
       render: () => `
         <h2 class="title">O efeito do Ozempic por R$5 ⭐</h2>
         <div class="news">
-          <img class="news-img" src="/assets/entrevista-globo-Cr7zZD5Q.webp?v=4" alt="Notícia sobre a Mistura Natural">
+          <img class="news-img" src="/assets/entrevista-globo-Cr7zZD5Q.webp?v=5" alt="Notícia sobre a Mistura Natural" width="500" height="500" loading="lazy" decoding="async">
         </div>
         ${btn('Continuar')}`,
       after: continuar,
@@ -642,7 +642,7 @@
       render: () => `
         <div class="stack-center">
           <div class="commit-img">
-            <img src="/assets/commitment-before-after-DYP9iNat.png" alt="Antes e depois">
+            <img src="/assets/commitment-before-after.webp" alt="Antes e depois" width="400" height="268" loading="lazy" decoding="async">
             <div class="commit-arrow">›</div>
           </div>
           <div class="pill">🎁 PARA LIBERAR SEU PLANO, PRECISO SABER:</div>
@@ -778,7 +778,7 @@
               <p class="depo-quote">“Perdi 11kg em 5 semanas, finalmente consegui!”</p>
               <p class="small muted">Aluna do Método - 52 anos</p>
             </div>
-            <img class="depo-img" src="/assets/depoimento-antes-depois-CsLdWDkt.jpg" alt="Antes e depois">
+            <img class="depo-img" src="/assets/depoimento-antes-depois.webp" alt="Antes e depois" width="400" height="400" loading="lazy" decoding="async">
           </div>
 
           ${btn('Continuar')}`;
@@ -794,7 +794,7 @@
         <div class="depos">
           ${DEPOIMENTOS.map((d) => `
             <div class="depo-card">
-              <img class="depo-img" src="${d.img}" alt="Antes e depois de ${esc(d.nome)}">
+              <img class="depo-img" src="${d.img}" alt="Antes e depois de ${esc(d.nome)}" width="360" height="360" loading="lazy" decoding="async">
               <div class="depo-info">
                 <div class="depo-kg">${d.kg}</div>
                 <p class="depo-quote">“${esc(d.frase)}”</p>
@@ -912,7 +912,7 @@
                 <div class="xs op">${esc(dataHoje)}</div>
               </div>
               <div class="card-inner">
-                <img class="mockup" src="/assets/mockup-formula-insulina.webp?v=2" alt="O que você recebe: rotina no celular e 3 bônus">
+                <img class="mockup" src="/assets/mockup-formula-insulina.webp?v=3" alt="O que você recebe: rotina no celular e 3 bônus" width="512" height="382" loading="lazy" decoding="async">
                 <div class="stack-row"><span class="green">✅</span><span>Receita completa da sua <strong>Mistura Metabólica</strong> personalizada</span></div>
                 <div class="stack-row"><span class="green">✅</span><span>Quantidade exata para o seu corpo</span></div>
                 <div class="stack-row"><span class="green">✅</span><span>Modo de preparo rápido (menos de 2 min)</span></div>
@@ -938,7 +938,7 @@
 
             <!-- Card de Garantia com Selo Elegante e Proporcional -->
             <div class="guarantee">
-              <img class="seal" src="/assets/garantia-30-dias.webp" alt="Garantia de 30 dias">
+              <img class="seal" src="/assets/garantia-30-dias.webp" alt="Garantia de 30 dias" width="64" height="64" loading="lazy" decoding="async">
               <div class="bold" style="font-size: 1.15rem; color: #1f2937">Garantia de Reembolso</div>
               <p class="small muted">Todo produto é obrigado a dar no mínimo 7 dias de garantia, porém confiamos tanto na fórmula que oferecemos 30 dias corridos.</p>
               <p class="small muted">Ou seja, se você não gostar ou não funcionar pra você, nós reembolsaremos cada centavo que você pagou, sem questionar.</p>
