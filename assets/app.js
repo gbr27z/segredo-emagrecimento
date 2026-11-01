@@ -3,7 +3,6 @@
 
   const CONFIG = {
     checkoutUrl: 'https://pay.cakto.com.br/yyscuaw',
-    audioUrl: '/assets/aline-audio.mp3', // Player configurado para quando o usuário gravar
     preco: {
       valor: 'R$ 27,90',
       promo: 'R$ 27,90',
@@ -258,10 +257,10 @@
         <h2 class="title">Como está seu ${hl('corpo hoje?')}</h2>
         <div class="grid-2">
           ${[
-            ['medio', 'Médio', '/assets/body-medio-DStQ-FtD.webp'],
-            ['acima-do-peso', 'Acima do peso', '/assets/body-acima-B6GAhLJh.webp'],
-            ['sobrepeso', 'Sobrepeso', '/assets/body-sobrepeso-Xf73tryt.webp'],
-            ['plus-size', 'Plus Size', '/assets/body-plussize-C2UrcrEA.webp'],
+            ['medio', 'Médio', '/assets/img-corpo-medio.webp'],
+            ['acima-do-peso', 'Acima do peso', '/assets/img-corpo-acima.webp'],
+            ['sobrepeso', 'Sobrepeso', '/assets/img-corpo-sobrepeso.webp'],
+            ['plus-size', 'Plus Size', '/assets/img-corpo-plus.webp'],
           ].map(([v, l, img]) => `
             <button type="button" class="quiz-option col${state.answers.corpo === v ? ' selected' : ''}" data-value="${v}">
               <img class="corpo-img" src="${img}" alt="${l}">
@@ -307,7 +306,7 @@
       render: () => `
         <h2 class="title">O efeito do Ozempic por R$5 ⭐</h2>
         <div class="news">
-          <img class="news-img" src="/assets/entrevista-globo-Cr7zZD5Q.webp?v=3" alt="Notícia sobre a Mistura Natural">
+          <img class="news-img" src="/assets/entrevista-globo-Cr7zZD5Q.webp?v=4" alt="Notícia sobre a Mistura Natural">
         </div>
         ${btn('Continuar')}`,
       after: continuar,
@@ -741,16 +740,6 @@
             </div>
           </div>
 
-          <div class="audio">
-            <img class="audio-avatar" src="/assets/doutora-avatar.jpg" alt="Aline Cardoso">
-            <button type="button" class="audio-play" id="audio-btn" aria-label="Ouvir áudio">▶</button>
-            <div class="audio-mid">
-              <div class="audio-wave"><div id="audio-prog"></div></div>
-              <div class="audio-meta"><span>🎙️ Áudio de Aline Cardoso</span><span id="audio-time">0:40</span></div>
-            </div>
-            <audio id="audio" preload="metadata" src="${CONFIG.audioUrl}"></audio>
-          </div>
-
           <div class="alert-card">
             <div class="alert-title">⚠️ Sinais de Alerta Identificados:</div>
             <div class="alert-row"><span>❌</span> Picos de fome e vontade de comer novamente</div>
@@ -794,31 +783,7 @@
 
           ${btn('Continuar')}`;
       },
-      after(root) {
-        continuar(root);
-        const audio = root.querySelector('#audio');
-        const b = root.querySelector('#audio-btn');
-        if (audio && b) {
-          const fmt = (s) => `${Math.floor(s / 60)}:${String(Math.floor(s % 60)).padStart(2, '0')}`;
-          b.addEventListener('click', () => {
-            if (audio.paused) {
-              audio.play().catch(() => {});
-              b.textContent = '❚❚';
-            } else {
-              audio.pause();
-              b.textContent = '▶';
-            }
-          });
-          audio.addEventListener('play', () => { b.textContent = '❚❚'; });
-          audio.addEventListener('pause', () => { b.textContent = '▶'; });
-          audio.addEventListener('ended', () => { b.textContent = '▶'; });
-          audio.addEventListener('timeupdate', () => {
-            if (!audio.duration) return;
-            root.querySelector('#audio-prog').style.width = `${(audio.currentTime / audio.duration) * 100}%`;
-            root.querySelector('#audio-time').textContent = fmt(audio.duration - audio.currentTime);
-          });
-        }
-      },
+      after: continuar,
     },
 
     // Tela 28 — Mais 4 Avaliações / Depoimentos
