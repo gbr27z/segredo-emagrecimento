@@ -694,7 +694,7 @@
           </div>
         </div>`,
       after(root) {
-        const dur = [520, 480, 450, 400];
+        const dur = [1250, 1150, 1150, 1050];
         const items = root.querySelectorAll('.load-item');
         let i = 0;
         let t = 0;
@@ -716,7 +716,7 @@
           root.querySelector('#pct').textContent = Math.round(total);
           if (t >= dur[i]) {
             i += 1; t = 0; pinta();
-            if (i >= dur.length) { stop(); timer(next, 300); }
+            if (i >= dur.length) { stop(); timer(next, 400); }
           }
         }, 30, 'interval');
       },
@@ -841,9 +841,9 @@
           el.querySelector('.mk').textContent = i < atual ? '✅' : i === atual ? '⏳' : '◻️';
         });
         pinta();
-        const s1 = timer(() => { atual = Math.min(atual + 1, itens.length - 1); pinta(); }, 450, 'interval');
-        const s2 = timer(() => { pct = Math.min(pct + 2.5, 100); root.querySelector('#bar').style.width = `${pct}%`; }, 50, 'interval');
-        timer(() => { s1(); s2(); next(); }, 2400);
+        const s1 = timer(() => { atual = Math.min(atual + 1, itens.length - 1); pinta(); }, 800, 'interval');
+        const s2 = timer(() => { pct = Math.min(pct + 1, 100); root.querySelector('#bar').style.width = `${pct}%`; }, 40, 'interval');
+        timer(() => { s1(); s2(); next(); }, 4200);
       },
     },
 
