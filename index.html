@@ -23,10 +23,12 @@
       <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
     </noscript>
 
-    <link rel="preload" as="image" href="/assets/logo-formula-insulina.webp" type="image/webp" />
+    <link rel="preload" as="style" href="/assets/styles.css?v=18" />
+    <link rel="preload" as="script" href="/assets/app.js?v=18" />
+    <link rel="preload" as="image" href="/assets/logo-formula-insulina.webp" type="image/webp" fetchpriority="high" />
     <link rel="preload" as="image" href="/assets/doutora-hero.webp" type="image/webp" fetchpriority="high" />
-    <link rel="stylesheet" href="/assets/styles.css?v=15" />
-    <script src="/assets/app.js?v=17" defer></script>
+    <link rel="stylesheet" href="/assets/styles.css?v=18" />
+    <script src="/assets/app.js?v=18" defer></script>
 
     <!-- Meta Pixel Code -->
     <script>
@@ -71,6 +73,37 @@
   </head>
 
   <body>
-    <div id="app" role="main"></div>
+    <div id="app" role="main">
+      <div class="scroll" id="scroll">
+        <div class="screen full">
+          <div class="hero">
+            <div class="hero-logo"><div class="logo"><img src="/assets/logo-formula-insulina.webp" alt="A Fórmula da Insulina" width="160" height="32" decoding="async"></div></div>
+            <h1 class="hero-h1">As Mulheres Acima de 40 Estão Trocando O <span class="hl">Ozempic</span> Por Essa Mistura de <span class="hl">R$5</span></h1>
+            <p class="hero-sub">Mistura “estranha” viraliza na internet por trazer resultado logo nos primeiros dias</p>
+            <div class="hero-img">
+              <div class="hero-glow"></div>
+              <img class="hero-foto" src="/assets/doutora-hero.webp" alt="Especialista" width="480" height="480" fetchpriority="high" decoding="async">
+              <div class="hero-callout">a mistura de R$5</div>
+            </div>
+            <p class="hero-prova"><strong>+12.847 mulheres</strong> já descobriram a versão certa para o seu corpo</p>
+            <button type="button" id="cta" class="btn-quiz-green">QUERO A RECEITA DA MISTURA</button>
+            <div class="hero-rodape">
+              <span><b>✓</b> 100% gratuito</span>
+              <i>·</i>
+              <span><b>✓</b> Resultado na hora</span>
+              <i>·</i>
+              <span><b>✓</b> Menos de 2 minutos</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      document.addEventListener('click', function(e) {
+        if (e.target.closest('#cta') && !window.__appLoaded) {
+          window.__ctaClicked = true;
+        }
+      });
+    </script>
   </body>
 </html>

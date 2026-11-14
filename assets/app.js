@@ -1068,10 +1068,45 @@
     paint();
   });
 
+  function preloadNextAssets() {
+    const assets = [
+      '/assets/img-corpo-medio.webp',
+      '/assets/img-corpo-acima.webp',
+      '/assets/img-corpo-sobrepeso.webp',
+      '/assets/img-corpo-plus.webp',
+      '/assets/areas-corpo.webp',
+      '/assets/entrevista-globo-Cr7zZD5Q.webp',
+      '/assets/antes-depois-claudia.webp',
+      '/assets/antes-depois-fernanda.webp',
+      '/assets/antes-depois-maria.webp',
+      '/assets/antes-depois-rosana.webp',
+      '/assets/garantia-30-dias.webp',
+    ];
+    const loadNext = (i) => {
+      if (i >= assets.length) return;
+      const img = new Image();
+      img.src = assets[i];
+      img.onload = img.onerror = () => {
+        setTimeout(() => loadNext(i + 1), 60);
+      };
+    };
+    if ('requestIdleCallback' in window) {
+      requestIdleCallback(() => loadNext(0));
+    } else {
+      setTimeout(() => loadNext(0), 1000);
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
+    window.__appLoaded = true;
     const p = Number.parseInt(params.get('tela') || params.get('page'), 10);
     state.idx = Number.isFinite(p) && p >= 1 && p <= SCREENS.length ? p - 1 : 0;
     history.replaceState({ idx: state.idx }, '', location.pathname + location.search);
     paint();
+    if (window.__ctaClicked) {
+      window.__ctaClicked = false;
+      next();
+    }
+    preloadNextAssets();
   });
 })();
