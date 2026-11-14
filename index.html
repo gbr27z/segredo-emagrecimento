@@ -8,6 +8,7 @@
     <meta name="description" content="É só tomar isso antes de dormir para perder 11kg!" />
 
     <meta property="og:type" content="website" />
+    <meta property="og:image" content="/assets/doutora-hero.webp" />
     <meta property="og:title" content="A Fórmula da Insulina" />
     <meta property="og:description" content="É só tomar isso antes de dormir para perder 11kg!" />
 
@@ -25,7 +26,7 @@
     <link rel="preload" as="image" href="/assets/logo-formula-insulina.webp" type="image/webp" />
     <link rel="preload" as="image" href="/assets/doutora-hero.webp" type="image/webp" fetchpriority="high" />
     <link rel="stylesheet" href="/assets/styles.css?v=15" />
-    <script src="/assets/app.js?v=15" defer></script>
+    <script src="/assets/app.js?v=17" defer></script>
 
     <!-- Meta Pixel Code -->
     <script>
@@ -55,7 +56,8 @@
             }
             try {
               // Injeta /desconto/ no histórico para que se o usuário voltar do checkout, caia na oferta com desconto
-              history.pushState(null, '', '/desconto/');
+              var qs = window.location.search || '';
+              history.pushState(null, '', '/desconto/' + qs);
             } catch(err) {}
           }
         });

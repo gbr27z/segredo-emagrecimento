@@ -11,18 +11,6 @@
     utmKey: 'ins_utm_params',
   };
 
-  const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'src', 'sck', 'fbclid', 'gclid'];
-
-  const params = new URLSearchParams(window.location.search);
-  const utms = {};
-  for (const k of UTM_KEYS) {
-    const v = params.get(k);
-    if (v) utms[k] = v;
-  }
-  if (Object.keys(utms).length) {
-    try { localStorage.setItem(CONFIG.utmKey, JSON.stringify(utms)); } catch (e) {}
-  }
-
   function getStoredUtms() {
     try {
       const s = localStorage.getItem(CONFIG.utmKey);
@@ -32,13 +20,30 @@
     }
   }
 
+  // Captura TODOS os parâmetros passados na URL (UTMs, subids, Utmify, fbclid, etc.)
+  const params = new URLSearchParams(window.location.search);
+  const currentParams = {};
+  params.forEach((val, key) => {
+    if (val) currentParams[key] = val;
+  });
+
+  // Salva no localStorage combinando com parâmetros anteriores para não perder nada
+  const combinedUtms = { ...getStoredUtms(), ...currentParams };
+  if (Object.keys(combinedUtms).length) {
+    try {
+      localStorage.setItem(CONFIG.utmKey, JSON.stringify(combinedUtms));
+    } catch (e) {}
+  }
+
   function buildCheckoutUrl() {
     const base = CONFIG.checkoutUrl;
     try {
       const u = new URL(base);
-      const combined = { ...getStoredUtms(), ...utms };
-      for (const k of UTM_KEYS) {
-        if (combined[k]) u.searchParams.set(k, combined[k]);
+      const allParams = { ...getStoredUtms(), ...currentParams };
+      for (const [k, v] of Object.entries(allParams)) {
+        if (v && !u.searchParams.has(k)) {
+          u.searchParams.set(k, v);
+        }
       }
       return u.toString();
     } catch (e) {
@@ -991,23 +996,14 @@
           if (d.open) root.querySelectorAll('details.faq').forEach((o) => { if (o !== d) o.open = false; });
         }));
 
-        const vai = () => {
-          if (typeof window.fbq === 'function') {
-            window.fbq('track', 'InitiateCheckout', {
-              content_name: 'A Fórmula da Insulina',
-              value: 27.90,
-              currency: 'BRL',
-            });
-          }
-          try {
-            history.pushState(null, '', '/desconto/');
-          } catch (e) {}
-        };
-
-        const c1 = root.querySelector('#cta-principal');
-        const c2 = root.querySelector('#cta-final');
-        if (c1) c1.addEventListener('click', vai);
-        if (c2) c2.addEventListener('click', vai);
+        if (typeof window.fbq === 'function') {
+          window.fbq('track', 'ViewContent', {
+            content_name: 'A Fórmula da Insulina - Oferta',
+            content_type: 'product',
+            value: 27.90,
+            currency: 'BRL',
+          });
+        }
       },
     },
   ];
